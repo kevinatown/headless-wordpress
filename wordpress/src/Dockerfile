@@ -1,18 +1,21 @@
 FROM wordpress:latest
 
-# Install unzip
+# RUN mv "$PHP_INI_DIR"/php.ini-development "$PHP_INI_DIR"/php.ini
+
+# Install unzip mariadb-client
 RUN apt-get update; \
-    apt-get install -y --no-install-recommends unzip
+    apt-get install -y --no-install-recommends unzip mariadb-client sudo netcat
 
-# Install WP plugins
-RUN curl -L https://downloads.wordpress.org/plugin/amazon-s3-and-cloudfront.2.0.zip -o /tmp/amazon-s3-and-cloudfront.2.0.zip
-RUN unzip /tmp/amazon-s3-and-cloudfront.2.0.zip -d /usr/src/wordpress/wp-content/plugins
-RUN rm /tmp/amazon-s3-and-cloudfront.2.0.zip
+RUN curl -sL https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -o wp; \
+  chmod +x wp; \
+  mv wp /usr/local/bin/; \
+  mkdir /var/www/.wp-cli; \
+  chown www-data:www-data /var/www/.wp-cli
 
-RUN curl -L https://downloads.wordpress.org/plugin/advanced-custom-fields.5.7.7.zip -o /tmp/advanced-custom-fields.5.7.7.zip
-RUN unzip /tmp/advanced-custom-fields.5.7.7.zip -d /usr/src/wordpress/wp-content/plugins
-RUN rm /tmp/advanced-custom-fields.5.7.7.zip
+COPY ./setup/configure_wp.sh /usr/local/bin/
+COPY ./setup/eraofgoodfeeling.wordpress.2020-02-28.001.xml /var/www/eraofgoodfeeling.wordpress.2020-02-28.001.xml
 
-RUN curl -L https://downloads.wordpress.org/plugin/custom-post-type-ui.1.5.8.zip -o /tmp/custom-post-type-ui.1.5.8.zip
-RUN unzip /tmp/custom-post-type-ui.1.5.8.zip -d /usr/src/wordpress/wp-content/plugins
-RUN rm /tmp/custom-post-type-ui.1.5.8.zip
+RUN rm -rf /usr/src/wordpress
+RUN chown -R www-data:www-data /var/www/html
+
+ENTRYPOINT ["configure_wp.sh"]

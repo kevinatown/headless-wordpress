@@ -24,25 +24,41 @@ Parameters:
     Type: String
     Default: 'latest'
     Description: Service version
-
   ListenerRulePriority:
     Type: Number
     Default: 2
-
   TLD:
     Type: String
     Description: TLD name needed by Route53 to perform DNS (example.com)
     Default: ''
-
   Domain:
     Type: String
     Description: Domain name for your api (api.example.com)
     Default: ''
-
   SSL:
     Type: String
     Description: SSL Arn for your Domain
     Default: ''
+  WordpressURL:
+    Type: String
+    Description: Domain url
+    Default: 'fake.com'
+  WordpressTitle:
+    Type: String
+    Description: A title for the site
+    Default: 'A Headless Wordpress Blog'
+  WordpressAdminUser:
+    Type: String
+    Description: Wordpress admin username
+    Default: 'Admin'
+  WordpressAdminPassword:
+    Type: String
+    Description: Admin password
+    Default: 'P@ssw0Rd!'
+  WordpressAdminEmail:
+    Type: String
+    Description: Admin email
+    Default: 'mail@fake.com'
 
 Conditions:
   UseCustomDomain: !And
@@ -247,7 +263,7 @@ Resources:
                 URL: { "Fn::ImportValue" : {"Fn::Sub": "${ECRStack}-Service1RepositoryUrl" } },
                 Version: !Ref Version
               }
-          Memory: 128
+          Memory: 256
           PortMappings:
             - ContainerPort: 80
           LogConfiguration:
@@ -297,6 +313,18 @@ Resources:
                   } 
             - Name: WORDPRESS_DEBUG
               Value: '1'
+            - Name: WORDPRESS_URL
+              Value: 
+                Fn::ImportValue: 
+                  !Sub "${ECSStack}-CustomDomainUrl"
+            - Name: WORDPRESS_TITLE
+              Value: !Sub "${WordpressTitle}"
+            - Name: WORDPRESS_ADMIN_USER
+              Value: !Sub "${WordpressAdminUser}"
+            - Name: WORDPRESS_ADMIN_PASSWORD
+              Value: !Sub "${WordpressAdminPassword}"
+            - Name: WORDPRESS_ADMIN_EMAIL
+              Value: !Sub "${WordpressAdminEmail}"
 
   TargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup

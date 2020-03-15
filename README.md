@@ -23,7 +23,8 @@ This project contains 5 CloudFormation scripts.  They must be created in order b
 - [AWS Account](https://aws.amazon.com/)
 - [EC2 Key Pair](https://console.aws.amazon.com/ec2/v2/home)
 - cim - (`npm install -g cim`)
-- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/installing.html) 
+- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
+- https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/CreatingHostedZone.html
 
 
 # Stacks
@@ -96,7 +97,7 @@ Next enable some of the plugins we added.
 
 Add a few blog posts and pages.
 
-Then check out the API. Ex: `https://<cdn-url>/wp-json/wp/v2/posts`
+Then check out the API. Ex: `https://cdn.kevintownsend.dev/wp-json/wp/v2/posts`
 
 # Tear down
 ```

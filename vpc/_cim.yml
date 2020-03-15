@@ -1,15 +1,15 @@
 version: 0.1
 stack:
-  name: headless-wp-vpc # Note: Update this with your stack name
+  name: '${env.STACK_NAME}-vpc' # Note: Update this with your stack name
   template:
     file: vpc.stack.yml
-    bucket: cim-stack-artifacts # Note: Update this with your bucket name.  Stacks are uploaded here prior to deployment.'
+    bucket: '${env.STACK_NAME}' # Note: Update this with your bucket name.  Stacks are uploaded here prior to deployment.'
 
   #
   # Define stack input parameters.
   #
   parameters:
-    KeyPairName: 'bluefineng'
+    KeyPairName: '${env.KEYPAIR_NAME}'
 
   #
   # Define stack capabilities required.
@@ -22,3 +22,4 @@ stack:
   #
   tags:
     app: 'headless-wp'
+    project: '${env.STACK_NAME}'

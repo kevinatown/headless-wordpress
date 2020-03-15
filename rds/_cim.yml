@@ -1,20 +1,20 @@
 version: 0.1
 stack:
-  name: headless-wp-rds # Note: Update this with your stack name
+  name: '${env.STACK_NAME}-rds' # Note: Update this with your stack name
   template:
     file: rds.stack.yml
-    bucket: cim-stack-artifacts # Note: Update this with your bucket name.  Stacks are uploaded here prior to deployment.'
+    bucket: '${env.STACK_NAME}' # Note: Update this with your bucket name.  Stacks are uploaded here prior to deployment.'
   policy:
     file: rds.policy.json
-    bucket: cim-stack-artifacts
+    bucket: '${env.STACK_NAME}'
   #
   # Define stack input parameters.
   #
   parameters:
-    VPCStack: 'headless-wp-vpc'
-    ECSStack: 'headless-wp-ecs'
-    DatabaseUsername: '${env.DatabaseUsername}'
-    DatabasePassword: '${env.DatabasePassword}'
+    VPCStack: '${env.STACK_NAME}-vpc'
+    ECSStack: '${env.STACK_NAME}-ecs'
+    DatabaseUsername: '${env.DATABASE_USERNAME}'
+    DatabasePassword: '${env.DATABASE_PASSWORD}'
 
   #
   # Define stack capabilities required.
@@ -27,3 +27,4 @@ stack:
   #
   tags:
     app: 'headless-wp'
+    project: '${env.STACK_NAME}'

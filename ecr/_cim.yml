@@ -1,12 +1,13 @@
 version: 0.1
 stack:
-  name: headless-wp-ecr # Note: Update this with your stack name
+  name: '${env.STACK_NAME}-ecr' # Note: Update this with your stack name
   template:
     file: ecr.stack.yml
-    bucket: cim-stack-artifacts # Note: Update this with your bucket name.  Stacks are uploaded here prior to deployment.'
+    bucket: '${env.STACK_NAME}' # Note: Update this with your bucket name.  Stacks are uploaded here prior to deployment.'
 
   #
   # Define stack input parameters.
+  # TODO: FIX THIS MAYBE?
   #
   parameters:
     Service1Name: 'headless-wp'
@@ -22,3 +23,4 @@ stack:
   #
   tags:
     app: 'headless-wp'
+    project: '${env.STACK_NAME}'
