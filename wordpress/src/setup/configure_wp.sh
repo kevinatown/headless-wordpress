@@ -197,10 +197,10 @@ wp plugin install --activate --force --allow-root \
     custom-post-type-ui \
     wordpress-importer \
     acf-to-wp-api \
-    wp-rest-api-v2-menus \
-    jwt-authentication-for-wp-rest-api \
-    https://github.com/wp-graphql/wp-graphql/archive/v0.3.6.zip \
-    https://github.com/wp-graphql/wp-graphql-jwt-authentication/archive/V0.3.2.zip
+    wp-rest-api-v2-menus #\
+    # jwt-authentication-for-wp-rest-api \
+    # https://github.com/wp-graphql/wp-graphql/archive/v0.3.6.zip \
+    # https://github.com/wp-graphql/wp-graphql-jwt-authentication/archive/V0.3.2.zip
 
 
 wp theme activate --allow-root twentytwenty
