@@ -59,6 +59,10 @@ Parameters:
     Type: String
     Description: Admin email
     Default: 'mail@fake.com'
+  WordpressPermalinkStructure: 
+    Type: String
+    Description: Permalink structure for wordpress
+    Default: '/%year%/%monthnum%/%day%/%postname%/'
 
 Conditions:
   UseCustomDomain: !And
@@ -325,6 +329,10 @@ Resources:
               Value: !Sub "${WordpressAdminPassword}"
             - Name: WORDPRESS_ADMIN_EMAIL
               Value: !Sub "${WordpressAdminEmail}"
+            - Name: IS_LOCAL
+              Value: 'false'
+            - Name: WORDPRESS_PERMALINK_STRUCTURE
+              Value: !Sub "${WordpressPermalinkStructure}"
 
   TargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup

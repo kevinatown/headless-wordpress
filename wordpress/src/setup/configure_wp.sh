@@ -4,9 +4,7 @@ set -euo pipefail
 
 mysql_ready='nc -z db_headless 3306'
 
-echo "is local = $IS_LOCAL"
-
-if [ "${IS_LOCAL:-false}" != "true" ] && ! $mysql_ready; then
+if [ "${IS_LOCAL:=false}" == "true" ] && ! $mysql_ready; then
     printf 'Waiting for MySQL..'
     while ! $mysql_ready
     do
@@ -211,6 +209,7 @@ wp theme delete --allow-root twentysixteen twentyseventeen twentynineteen
 wp plugin delete --allow-root akismet hello
 
 wp import /var/www/eraofgoodfeeling.wordpress.2020-02-28.001.xml \
+  --skip=attachment \
   --authors=create \
   --skip-themes \
   --allow-root
