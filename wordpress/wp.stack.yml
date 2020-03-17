@@ -126,6 +126,7 @@ Resources:
           -
             TargetOriginId: 'wp-alb'
             PathPattern: '/wp-json/*'
+            MinTTL: 0
             MaxTTL: 60000
             DefaultTTL: 10000
             ViewerProtocolPolicy: !If [UseCustomDomain, "redirect-to-https", "allow-all"]
@@ -142,6 +143,9 @@ Resources:
           -
             TargetOriginId: 'wp-alb'
             PathPattern: '/index.php/wp-json/*'
+            Headers:
+              - All
+            MinTTL: 0
             MaxTTL: 60000
             DefaultTTL: 10000
             ViewerProtocolPolicy: !If [UseCustomDomain, "redirect-to-https", "allow-all"]
