@@ -141,7 +141,7 @@ Resources:
                 Forward: none
           -
             TargetOriginId: 'wp-alb'
-            PathPattern: 'index.php/wp-json/*'
+            PathPattern: '/index.php/wp-json/*'
             MaxTTL: 60000
             DefaultTTL: 10000
             ViewerProtocolPolicy: !If [UseCustomDomain, "redirect-to-https", "allow-all"]
@@ -325,6 +325,8 @@ Resources:
                   ) ) );
                   define( 'WP_HOME', '${CMSUrl}' );
                   define( 'WP_SITEURL', '${CMSUrl}' );
+                  define('FORCE_SSL_ADMIN', true);
+                  define('FORCE_SSL_LOGIN', true);
                 - {
                   MediaBucket: !Ref MediaBucket,
                   DomainName: !If [UseCustomDomain, !Ref Domain, !GetAtt CDN.DomainName],
