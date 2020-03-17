@@ -182,24 +182,6 @@ wp core install \
 # wp option update blogdescription "$WORDPRESS_DESCRIPTION"
 # wp rewrite structure "$WORDPRESS_PERMALINK_STRUCTURE"
 
-# awk '
-#     /^\/\*.*stop editing.*\*\/$/ && c == 0 {
-#       c = 1
-#       system("cat")
-#       if (ENVIRON["WORDPRESS_CONFIG_EXTRA"]) {
-#         print "// WORDPRESS_CONFIG_EXTRA"
-#         print ENVIRON["WORDPRESS_CONFIG_EXTRA"] "\n"
-#       }
-#     }
-#     { print }
-#   ' wp-config.php << 'EOPHP'
-#   // If we're behind a proxy server and using HTTPS, we need to alert WordPress of that fact
-#   // see also http://codex.wordpress.org/Administration_Over_SSL#Using_a_Reverse_Proxy
-#   if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
-#     $_SERVER['HTTPS'] = 'on';
-#   }
-# EOPHP
-
 wp plugin install --activate --force --allow-root \
     amazon-s3-and-cloudfront \
     advanced-custom-fields \
